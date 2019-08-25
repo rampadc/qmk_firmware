@@ -19,6 +19,14 @@
 // You can leave any or all of these undefined.
 // These are only required if you want to perform custom actions.
 
+void matrix_scan_kb(void) {
+  // put your looping keyboard code here
+  // runs every cycle (a lot)
+
+if (E1)
+    matrix_scan_user();
+}
+
 /*
 
 void matrix_init_kb(void) {
@@ -26,13 +34,6 @@ void matrix_init_kb(void) {
   // runs once when the firmware starts up
 
   matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-  // put your looping keyboard code here
-  // runs every cycle (a lot)
-
-  matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
