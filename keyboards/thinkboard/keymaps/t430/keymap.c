@@ -15,7 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 
-#define FN_KEY E1
+
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
   QMKBEST = SAFE_RANGE,
@@ -68,12 +68,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void matrix_init_user(void) {
+bool is_FN_pressed(void) {
+  if (PINE & (1 << 1)) {
+    return true;
+  }
+  return false;
+}
 
+void matrix_init_user(void) {
+  // FN input active-low
+  DDRE &= ~(1 << 1);
+  PORTE |= (1 << 1);
 }
 
 void matrix_scan_user(void) {
-
+  if (is_FN_pressed()) {
+    layer_on(1);
+  } else {
+    layer_off(1);
+  }
 }
 
 void led_set_user(uint8_t usb_led) {
